@@ -45,18 +45,11 @@ public class CalculatorController implements Initializable {
     @FXML
     private Button divideButton;
     @FXML
-    private Button removeButton;
-    @FXML
-    private Button resultButton;
-    @FXML
-    private Button clearButton;
-    @FXML
     private Circle validCircle;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         numbersArea.setText("");
-
         oneButton.setOnAction(this::addNumber);
         twoButton.setOnAction(this::addNumber);
         threeButton.setOnAction(this::addNumber);
@@ -67,7 +60,6 @@ public class CalculatorController implements Initializable {
         eightButton.setOnAction(this::addNumber);
         nineButton.setOnAction(this::addNumber);
         zeroButton.setOnAction(this::addNumber);
-
         plusButton.setOnAction(this::addOperator);
         minusButton.setOnAction(this::addOperator);
         multiplyButton.setOnAction(this::addOperator);

@@ -2,58 +2,101 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="332.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.aueb.dmst.postfixieCalculator.CalculatorController">
+<AnchorPane prefHeight="332.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gr.aueb.dmst.postfixieCalculator.CalculatorController">
    <children>
-      <TabPane layoutX="-4.0" layoutY="29.0" prefHeight="303.0" prefWidth="344.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Postfix">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TextArea fx:id="numbersArea" editable="false" layoutX="4.0" prefHeight="46.0" prefWidth="341.0" />
-                        <Button fx:id="oneButton" layoutX="14.0" layoutY="57.0" mnemonicParsing="false" text="1" />
-                        <Button fx:id="twoButton" layoutX="44.0" layoutY="57.0" mnemonicParsing="false" text="2" />
-                        <Button fx:id="threeButton" layoutX="74.0" layoutY="58.0" mnemonicParsing="false" text="3" />
-                        <Button fx:id="fourButton" layoutX="12.0" layoutY="87.0" mnemonicParsing="false" text="4" />
-                        <Button fx:id="fiveButton" layoutX="44.0" layoutY="88.0" mnemonicParsing="false" text="5" />
-                        <Button fx:id="sixButton" layoutX="74.0" layoutY="88.0" mnemonicParsing="false" text="6" />
-                        <Button fx:id="sevenButton" layoutX="13.0" layoutY="118.0" mnemonicParsing="false" text="7" />
-                        <Button fx:id="eightButton" layoutX="44.0" layoutY="118.0" mnemonicParsing="false" text="8" />
-                        <Button fx:id="nineButton" layoutX="74.0" layoutY="118.0" mnemonicParsing="false" text="9" />
-                        <Button fx:id="zeroButton" layoutX="44.0" layoutY="147.0" mnemonicParsing="false" text="0" />
-                        <Button fx:id="removeButton" layoutX="109.0" layoutY="58.0" mnemonicParsing="false" onAction="#removeFromStack" text="&lt;" />
-                        <Button fx:id="plusButton" layoutX="145.0" layoutY="59.0" mnemonicParsing="false" text="+" />
-                        <Button fx:id="minusButton" layoutX="174.0" layoutY="59.0" mnemonicParsing="false" text="-" />
-                        <Button fx:id="multiplyButton" layoutX="146.0" layoutY="88.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="20.0" text="*" />
-                        <Button fx:id="divideButton" layoutX="174.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="23.0" text="/" />
-                        <Button fx:id="resultButton" layoutX="256.0" layoutY="59.0" mnemonicParsing="false" onAction="#calculateResult" text="RESULT" />
-                        <Button fx:id="clearButton" layoutX="30.0" layoutY="179.0" mnemonicParsing="false" onAction="#clearStack" text="CLEAR" />
-                        <Circle fx:id="validCircle" fill="GREEN" layoutX="325.0" layoutY="63.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Infix">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="236.0" prefWidth="329.0">
-                     <children>
-                        <Label layoutX="29.0" layoutY="127.0" text="I am POSTFIXIE for a reason, i dont to regural stuff duh" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-      <Pane prefHeight="30.0" prefWidth="341.0">
+       <AnchorPane layoutY="30.0" minHeight="0.0" minWidth="0.0" prefHeight="302.0" prefWidth="292.0" style="-fx-background-color: #211951;">
+           <children>
+               <TextArea fx:id="numbersArea" editable="false" layoutX="9.0" layoutY="4.0" prefHeight="47.0" prefWidth="274.0" style="-fx-background-color: F0F3FF; -fx-font-family: Krungthep" />
+               <Button fx:id="oneButton" layoutX="13.0" layoutY="57.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="1" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="twoButton" layoutX="44.0" layoutY="57.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="2" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="threeButton" layoutX="74.0" layoutY="58.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="3" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="fourButton" layoutX="12.0" layoutY="87.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="4" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="fiveButton" layoutX="44.0" layoutY="88.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="5" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="sixButton" layoutX="74.0" layoutY="88.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="6" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="sevenButton" layoutX="13.0" layoutY="118.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="7" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="eightButton" layoutX="44.0" layoutY="118.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="8" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="nineButton" layoutX="74.0" layoutY="118.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="9" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="zeroButton" layoutX="44.0" layoutY="147.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="0" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="removeButton" layoutX="109.0" layoutY="58.0" mnemonicParsing="false" onAction="#removeFromStack" style="-fx-background-color: #15F5BA;" text="&lt;" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="plusButton" layoutX="145.0" layoutY="59.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="+" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="minusButton" layoutX="174.0" layoutY="59.0" mnemonicParsing="false" style="-fx-background-color: #15F5BA;" text="-" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="multiplyButton" layoutX="146.0" layoutY="88.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="20.0" style="-fx-background-color: #15F5BA;" text="*" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="divideButton" layoutX="174.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="23.0" style="-fx-background-color: #15F5BA;" text="/" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="resultButton" layoutX="213.0" layoutY="59.0" mnemonicParsing="false" onAction="#calculateResult" style="-fx-background-color: #15F5BA;" text="RESULT" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Button fx:id="clearButton" layoutX="30.0" layoutY="179.0" mnemonicParsing="false" onAction="#clearStack" style="-fx-background-color: #15F5BA;" text="CLEAR" textFill="WHITE">
+                   <font>
+                       <Font name="Krungthep" size="13.0" />
+                   </font></Button>
+               <Circle fx:id="validCircle" fill="GREEN" layoutX="282.0" layoutY="63.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+           </children>
+       </AnchorPane>
+      <Pane prefHeight="30.0" prefWidth="292.0" style="-fx-background-color: #836FFF;">
          <children>
-            <Label layoutX="3.0" layoutY="7.0" text="Postfixie Calculator - Magic Indeed" />
+            <Label layoutX="23.0" layoutY="6.0" text="Postfixie Calculator - Magic Indeed" textFill="WHITE">
+               <font>
+                  <Font name="Krungthep" size="13.0" />
+               </font></Label>
+            <ImageView fitHeight="23.0" fitWidth="20.0" layoutX="2.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/calculator.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>
