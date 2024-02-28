@@ -102,16 +102,21 @@ public class CalculatorController implements Initializable {
 
     public void removeFromStack() {
         if (!Main.stack.isEmpty()) {
-            numbersArea.setText(numbersArea.getText().substring(0, numbersArea.getText().length() - 2));
+            numbersArea.setText(numbersArea.getText().substring(0, numbersArea.getText().length() - 3));
             Main.stack.pop();
         }
     }
 
     public void calculateResult() {
         if (Calculator.isValidPostfix(Main.stack)) {
-            numbersArea.setText(Calculator.calculateExpression(Main.stack).toString());
-            validCircle.setFill(javafx.scene.paint.Color.GREEN);
-            resultState = true;
+            try {
+                Double result = Calculator.calculateExpression(Main.stack);
+                numbersArea.setText(result.toString());
+                validCircle.setFill(javafx.scene.paint.Color.GREEN);
+                resultState = true;
+            } catch (ArithmeticException e) {
+                validCircle.setFill(javafx.scene.paint.Color.RED);
+            }
         } else {
             validCircle.setFill(javafx.scene.paint.Color.RED);
         }
