@@ -8,10 +8,17 @@ import javafx.scene.control.TextArea;
 import javafx.scene.shape.Circle;
 import javafx.scene.paint.Color;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CalculatorController implements Initializable {
+
+    private static final String openai_ApiKey = System.getenv("OPENAI_API_KEY");
 
     public boolean resultState = false;
 
@@ -47,6 +54,8 @@ public class CalculatorController implements Initializable {
     private Button divideButton;
     @FXML
     private Circle validCircle;
+    @FXML
+    private TextArea factTextArea;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -113,6 +122,8 @@ public class CalculatorController implements Initializable {
                 numbersArea.setText(resultText);
                 validCircle.setFill(Color.web("#36ea4e"));
                 resultState = true;
+                factTextArea.clear();
+                factTextArea.setText(chatGPT("Tell me fun fact about number " + resultText + ", either historical, chemistry, physiscs. Maximum 25 words answer"));
             } catch (ArithmeticException e) {
                 validCircle.setFill(Color.RED);
             }
@@ -124,6 +135,55 @@ public class CalculatorController implements Initializable {
     public void clearStack() {
         Main.stack.clear();
         numbersArea.setText("");
+    }
+
+    public static String chatGPT(String prompt) {
+        String url = "https://api.openai.com/v1/chat/completions";
+        String apiKey = openai_ApiKey;
+        String model = "gpt-3.5-turbo";
+        try {
+            URL obj = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Authorization", "Bearer " + apiKey);
+            connection.setRequestProperty("Content-Type", "application/json");
+
+            // The request body
+            String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + prompt + "\"}]}";
+            connection.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            writer.write(body);
+            writer.flush();
+            writer.close();
+
+            // Check the status code
+            int statusCode = connection.getResponseCode();
+            System.out.println("Status code: " + statusCode);
+
+            // Response from ChatGPT
+            BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+
+            StringBuffer response = new StringBuffer();
+
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
+
+            // calls the method to extract the message.
+            return extractMessageFromJSONResponse(response.toString());
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String extractMessageFromJSONResponse(String response) {
+        int start = response.indexOf("content")+ 11;
+        int end = response.indexOf("\"", start);
+        return response.substring(start, end);
     }
 }
 

@@ -88,6 +88,21 @@
                        <Font name="Krungthep" size="13.0" />
                    </font></Button>
                <Circle fx:id="validCircle" fill="#36ea4e" layoutX="282.0" layoutY="63.0" radius="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" />
+            <TextArea fx:id="factTextArea" layoutX="4.0" layoutY="239.0" prefHeight="60.0" prefWidth="285.0" promptText="Interesting fact about your result..">
+               <font>
+                  <Font name="AkayaTelivigala-Regular" size="13.0" />
+               </font>
+            </TextArea>
+            <Label layoutX="87.0" layoutY="212.0" prefHeight="29.0" prefWidth="59.0" text="Fun fact " textFill="WHITE">
+               <font>
+                  <Font name="Al Bayan Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="142.0" layoutY="220.0" opacity="0.84" prefHeight="18.0" prefWidth="84.0" text="by Postfixie AI" textFill="#dddddd">
+               <font>
+                  <Font name="AkayaKanadaka-Regular" size="11.0" />
+               </font>
+            </Label>
            </children>
        </AnchorPane>
       <Pane prefHeight="30.0" prefWidth="292.0" style="-fx-background-color: #33186B;">
