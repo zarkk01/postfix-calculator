@@ -94,6 +94,11 @@ public class CalculatorController implements Initializable {
     }
 
     public void removeFromStack() {
+        if (resultState) {
+            clearStack();
+            resultState = false;
+            return;
+        }
         if (!Main.stack.isEmpty()) {
             numbersArea.setText(numbersArea.getText().substring(0, numbersArea.getText().length() - 3));
             Main.stack.pop();

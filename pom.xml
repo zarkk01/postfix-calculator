@@ -55,6 +55,7 @@
                   <mainClass>gr.aueb.dmst.postfixieCalculator.Main</mainClass>
                 </transformer>
               </transformers>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
             </configuration>
           </execution>
         </executions>
