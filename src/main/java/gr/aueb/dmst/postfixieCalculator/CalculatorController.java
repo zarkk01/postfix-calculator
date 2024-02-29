@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 public class CalculatorController implements Initializable {
 
     private static final String openai_ApiKey = System.getenv("OPENAI_API_KEY");
+    // "sk-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
+
 
     public boolean resultState = false;
 
@@ -80,6 +82,7 @@ public class CalculatorController implements Initializable {
         if (resultState) {
             clearStack();
             resultState = false;
+            factTextArea.clear();
         }
         Button button = (Button) event.getSource();
         String buttonText = button.getText();
@@ -93,6 +96,7 @@ public class CalculatorController implements Initializable {
         if (resultState) {
             clearStack();
             resultState = false;
+            factTextArea.clear();
         }
         Button button = (Button) event.getSource();
         String buttonText = button.getText();
@@ -123,7 +127,7 @@ public class CalculatorController implements Initializable {
                 validCircle.setFill(Color.web("#36ea4e"));
                 resultState = true;
                 factTextArea.clear();
-                factTextArea.setText(chatGPT("Tell me fun fact about number " + resultText + ", either historical, chemistry, physiscs. Maximum 25 words answer"));
+                factTextArea.setText(chatGPT("Tell me fun and interesting fact about number " + resultText + ", either historical, physiscs, biology, animals. It should be a bit interesting and if possible funny. Maximum 20 words answer.").replace("\\", ""));
             } catch (ArithmeticException e) {
                 validCircle.setFill(Color.RED);
             }
@@ -148,7 +152,6 @@ public class CalculatorController implements Initializable {
             connection.setRequestProperty("Authorization", "Bearer " + apiKey);
             connection.setRequestProperty("Content-Type", "application/json");
 
-            // The request body
             String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + prompt + "\"}]}";
             connection.setDoOutput(true);
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
@@ -156,11 +159,11 @@ public class CalculatorController implements Initializable {
             writer.flush();
             writer.close();
 
-            // Check the status code
             int statusCode = connection.getResponseCode();
-            System.out.println("Status code: " + statusCode);
+            if (statusCode != 200) {
+                throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+            }
 
-            // Response from ChatGPT
             BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
 
@@ -171,7 +174,6 @@ public class CalculatorController implements Initializable {
             }
             br.close();
 
-            // calls the method to extract the message.
             return extractMessageFromJSONResponse(response.toString());
 
         } catch (IOException e) {
