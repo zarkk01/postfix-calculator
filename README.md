@@ -8,6 +8,15 @@ Well, PostFixie doesn't believe in the traditional way of doing math. No sir! It
 
 But that's not all! PostFixie now comes with an AI-powered feature that provides an interesting fact about the result of your calculation. So you're not just calculating, you're learning too!
 
+## Take a Glimpse
+
+Here's a sneak peek of what you can expect from PostFixie AI:
+
+![PostFixie AI in action](visuals/beforeCalculationPostfixie.png)
+![PostFixie AI after action](visuals/afterCaclulationPostfixie.png)
+
+In the screenshot above, you can see how PostFixie AI performs calculations in postfix notation and provides interesting facts about the result. Remember, PostFixie AI is not just a calculator, it's a learning tool!
+
 ## How to Use PostFixie
 
 Before you start, you need to export your OpenAI API key (if you want to use the "Interesting fact..." thing, if not move on to the next steps). Here's how you can do it:
