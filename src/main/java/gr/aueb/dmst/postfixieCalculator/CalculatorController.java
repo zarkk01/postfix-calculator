@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -103,14 +104,15 @@ public class CalculatorController implements Initializable {
         if (Calculator.isValidPostfix(Main.stack)) {
             try {
                 Double result = Calculator.calculateExpression(Main.stack);
-                numbersArea.setText(result.toString());
-                validCircle.setFill(javafx.scene.paint.Color.GREEN);
+                String resultText = result == Math.floor(result) ? Integer.toString(result.intValue()) : result.toString();
+                numbersArea.setText(resultText);
+                validCircle.setFill(Color.web("#36ea4e"));
                 resultState = true;
             } catch (ArithmeticException e) {
-                validCircle.setFill(javafx.scene.paint.Color.RED);
+                validCircle.setFill(Color.RED);
             }
         } else {
-            validCircle.setFill(javafx.scene.paint.Color.RED);
+            validCircle.setFill(Color.RED);
         }
     }
 
