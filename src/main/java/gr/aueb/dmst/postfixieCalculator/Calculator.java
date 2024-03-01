@@ -41,24 +41,24 @@ public class Calculator {
      * @throws ArithmeticException if a division by zero is attempted
      */
     public static Double calculateExpression(Stack<Element> expressionToBeCalculated) {
-        Stack<Double> results = new Stack<>();
+        Stack<Double> result = new Stack<>();
         for (Element element : expressionToBeCalculated) {
             if (element.isNumber()) {
                 // If the element is a number, push it to the results stack
-                results.push(element.getNumber().doubleValue());
+                result.push(element.getNumber().doubleValue());
             } else {
                 // If the element is an operator, pop two numbers from the results stack and perform the operation
-                double operand2 = results.pop();
-                double operand1 = results.pop();
+                double operand2 = result.pop();
+                double operand1 = result.pop();
                 switch (element.getOperator()) {
                     case '+':
-                        results.push(operand1 + operand2);
+                        result.push(operand1 + operand2);
                         break;
                     case '-':
-                        results.push(operand1 - operand2);
+                        result.push(operand1 - operand2);
                         break;
                     case '*':
-                        results.push(operand1 * operand2);
+                        result.push(operand1 * operand2);
                         break;
                     case '/':
                         // Check for division by zero and throw an exception if necessary
@@ -66,12 +66,12 @@ public class Calculator {
                             throw new ArithmeticException("Cannot divide by zero");
                         }
                         // If the division is valid, push the result to the results stack
-                        results.push(operand1 / operand2);
+                        result.push(operand1 / operand2);
                         break;
                 }
             }
         }
         // The result of the calculation is the last number remaining in the results stack
-        return results.pop();
+        return result.pop();
     }
 }

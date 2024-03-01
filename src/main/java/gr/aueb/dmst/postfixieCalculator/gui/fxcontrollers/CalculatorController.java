@@ -23,7 +23,7 @@ import gr.aueb.dmst.postfixieCalculator.Main;
 
 /**
  * The CalculatorController class is responsible for handling user interactions with the GUI.
- * It implements the Initializable interface, which means it performs certain operations when the GUI is first loaded.
+ * It contains the methods so each button in the GUI can perform its specific action.
  */
 public class CalculatorController implements Initializable {
 
@@ -36,7 +36,7 @@ public class CalculatorController implements Initializable {
 
     // FXML annotations are used to link the JavaFX components defined in the FXML file to the controller class
     @FXML
-    private TextArea numbersArea;
+    private TextArea previewArea;
     @FXML
     private Button zeroButton;
     @FXML
@@ -69,6 +69,8 @@ public class CalculatorController implements Initializable {
     private Circle validCircle;
     @FXML
     private TextArea factTextArea;
+    @FXML
+    private TextArea expressionArea;
 
     /**
      * This method sets up the initial state of the GUI and the event handlers for the buttons.
@@ -78,17 +80,21 @@ public class CalculatorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        numbersArea.setText("");
-        oneButton.setOnAction(this::addNumber);
-        twoButton.setOnAction(this::addNumber);
-        threeButton.setOnAction(this::addNumber);
-        fourButton.setOnAction(this::addNumber);
-        fiveButton.setOnAction(this::addNumber);
-        sixButton.setOnAction(this::addNumber);
-        sevenButton.setOnAction(this::addNumber);
-        eightButton.setOnAction(this::addNumber);
-        nineButton.setOnAction(this::addNumber);
-        zeroButton.setOnAction(this::addNumber);
+        // In the start, both text areas are empty
+        previewArea.setText("");
+        expressionArea.setText("");
+        // When user press a button, this number displays in the previewArea
+        oneButton.setOnAction(this::addNumberToPreview);
+        twoButton.setOnAction(this::addNumberToPreview);
+        threeButton.setOnAction(this::addNumberToPreview);
+        fourButton.setOnAction(this::addNumberToPreview);
+        fiveButton.setOnAction(this::addNumberToPreview);
+        sixButton.setOnAction(this::addNumberToPreview);
+        sevenButton.setOnAction(this::addNumberToPreview);
+        eightButton.setOnAction(this::addNumberToPreview);
+        nineButton.setOnAction(this::addNumberToPreview);
+        zeroButton.setOnAction(this::addNumberToPreview);
+        // When user press an operator button, the operator displays in the expressionArea
         plusButton.setOnAction(this::addOperator);
         minusButton.setOnAction(this::addOperator);
         multiplyButton.setOnAction(this::addOperator);
@@ -97,11 +103,13 @@ public class CalculatorController implements Initializable {
 
     /**
      * This method is called when a number button is clicked.
-     * It adds the number to the postfix expression (in our stack) and updates the display.
+     * It adds the number to the previewArea and updates the display.
+     * This happens so user can select a multi digit number and see it before he adds
+     * it in the expression.
      *
      * @param event the event that triggered this method
      */
-    public void addNumber(ActionEvent event) {
+    public void addNumberToPreview(ActionEvent event) {
         // If the result of a calculation is being displayed, clear the stack and the display
         if (resultState) {
             clearStack();
@@ -111,10 +119,20 @@ public class CalculatorController implements Initializable {
         // Get the number from the button that triggered the event
         Button button = (Button) event.getSource();
         String buttonText = button.getText();
-        // Update the display
-        numbersArea.setText(numbersArea.getText() + " " + buttonText + " ");
-        // Push the number to the stack
-        Main.stack.push(new Element(Integer.parseInt(buttonText)));
+        // Update the display in the previewArea
+        previewArea.setText(previewArea.getText() + buttonText);
+    }
+
+    /**
+     * This method is used to remove the last character from the text in the previewArea.
+     * If the previewArea is not empty, it updates the text in the previewArea by removing the last character.
+     */
+    public void removeFromPreview() {
+        // Check if the previewArea is not empty
+        if (!previewArea.getText().isEmpty()) {
+            // Remove the last character from the text in the previewArea
+            previewArea.setText(previewArea.getText().substring(0, previewArea.getText().length() - 1));
+        }
     }
 
     /**
@@ -134,9 +152,24 @@ public class CalculatorController implements Initializable {
         Button button = (Button) event.getSource();
         String buttonText = button.getText();
         // Update the display
-        numbersArea.setText(numbersArea.getText() + " " + buttonText + " ");
+        expressionArea.setText(expressionArea.getText() + " " + buttonText + " ");
         // Push the operator to the stack
         Main.stack.push(new Element(buttonText.charAt(0)));
+    }
+
+    /**
+     * This method is used to add the number from the previewArea to the expressionArea.
+     * It also pushes the number to the stack and clears the previewArea.
+     */
+    public void addNumberToExpression() {
+        // Append the number from the previewArea to the expressionArea
+        expressionArea.setText(expressionArea.getText() + " " + previewArea.getText() + " ");
+
+        // Push the number to the stack
+        Main.stack.push(new Element(Integer.parseInt(previewArea.getText())));
+
+        // Clear the previewArea
+        previewArea.setText("");
     }
 
     /**
@@ -153,7 +186,7 @@ public class CalculatorController implements Initializable {
         // If the stack is not empty, remove the last element and update the display
         if (!Main.stack.isEmpty()) {
             // If the last element is a number, remove 3 characters from the display (space, number, space)
-            numbersArea.setText(numbersArea.getText().substring(0, numbersArea.getText().length() - 3));
+            expressionArea.setText(expressionArea.getText().substring(0, expressionArea.getText().length() - 3));
             Main.stack.pop();
         }
     }
@@ -171,7 +204,7 @@ public class CalculatorController implements Initializable {
                 Double result = Calculator.calculateExpression(Main.stack);
                 String resultText = result == Math.floor(result) ? Integer.toString(result.intValue()) : result.toString();
                 // Update the display
-                numbersArea.setText(resultText);
+                expressionArea.setText(resultText);
                 // Make the valid circle green
                 validCircle.setFill(Color.web("#36ea4e"));
 
@@ -179,11 +212,13 @@ public class CalculatorController implements Initializable {
                 factTextArea.clear();
                 // Display the fun fact ONLY if user has given the OpenAI API key
                 if (openai_ApiKey != null && !openai_ApiKey.isEmpty()) {
+                    // Send to the chatGPT the prompt and display the response
                     factTextArea.setText(chatGPT("Tell me a fun and interesting fact about number " +
                             resultText + ", either historical, physiscs," +
                             " biology, animals. It should be a bit interesting and if possible funny." +
                             " Maximum 20 words answer.").replace("\\", ""));
                 } else {
+                    // If user has not given the OpenAI API key, display a message to set it up
                     factTextArea.setText("Please set up the OpenAI API key to use this feature.");
                 }
 
@@ -203,7 +238,8 @@ public class CalculatorController implements Initializable {
      * It is called when the "CLEAR" button is clicked.
      */
     public void clearStack() {
-        numbersArea.setText("");
+        factTextArea.setText("");
+        expressionArea.setText("");
         Main.stack.clear();
     }
 
