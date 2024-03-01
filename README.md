@@ -12,10 +12,10 @@ But that's not all! PostFixie now comes with an AI-powered feature that provides
 
 Here's a sneak peek of what you can expect from PostFixie AI:
 
-![PostFixie AI in action](visuals/beforeCalculationPostfixie.png)
-![PostFixie AI after action](visuals/afterCaclulationPostfixie.png)
 
-In the screenshot above, you can see how PostFixie AI performs calculations in postfix notation and provides interesting facts about the result. Remember, PostFixie AI is not just a calculator, it's a learning tool!
+![PostFixie AI after action](visuals/inAction.gif)
+
+In the gif above, you can see (slowly) how PostFixie AI performs calculations in postfix notation and provides interesting facts about the result. Remember, PostFixie AI is not just a calculator, it's a learning tool!
 
 ## How to Use PostFixie
 
