@@ -1,4 +1,4 @@
-# PostFixie AI: Your Friendly Neighborhood Postfix AI-Calculator
+# PostFixie AI: Your Fun Fact Postfix AI-Calculator
 
 Hello there! Welcome to the world of PostFixie, a stack-based postfix calculator built with Java, Maven, and a dash of AI. PostFixie is not just any calculator, it's a calculator with a twist!
 
